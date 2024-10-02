@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import org.example.backlmf.exception.DeviceIdAlreadyExistsException;
+
 @RestController
 @RequestMapping("/api/devices")
 public class DeviceController {
@@ -15,8 +17,12 @@ public class DeviceController {
     private DeviceService deviceService;
 
     @PostMapping
-    public ResponseEntity<Device> addDevice(@RequestBody Device device) {
-        return ResponseEntity.ok(deviceService.addDevice(device));
+    public ResponseEntity<?> addDevice(@RequestBody Device device) {
+        try {
+            return ResponseEntity.ok(deviceService.addDevice(device));
+        } catch (DeviceIdAlreadyExistsException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping

@@ -2,6 +2,7 @@ package org.example.backlmf.service;
 
 import org.example.backlmf.entity.Device;
 import org.example.backlmf.repository.DeviceRepository;
+import org.example.backlmf.exception.DeviceIdAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,14 @@ public class DeviceService {
     @Autowired
     private DeviceRepository deviceRepository;
 
-    public Device addDevice(Device device) {
+    public boolean isDeviceIdExists(String deviceId) {
+        return deviceRepository.findByDeviceId(deviceId) != null;
+    }
+
+    public Device addDevice(Device device) throws DeviceIdAlreadyExistsException {
+        if (isDeviceIdExists(device.getDeviceId())) {
+            throw new DeviceIdAlreadyExistsException("设备ID已存在");
+        }
         return deviceRepository.save(device);
     }
 
