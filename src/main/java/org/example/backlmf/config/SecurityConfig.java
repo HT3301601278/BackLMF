@@ -26,8 +26,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
                 .antMatchers("/api/users/register", "/api/users/login").permitAll()
+                .antMatchers("/api/users/me").authenticated()
+                .antMatchers("/api/devices/**").permitAll()
                 .anyRequest().authenticated()
             .and()
             .httpBasic();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new PasswordEncoder() {
+            @Override
+            public String encode(CharSequence rawPassword) {
+                return rawPassword.toString();
+            }
+
+            @Override
+            public boolean matches(CharSequence rawPassword, String encodedPassword) {
+                return rawPassword.toString().equals(encodedPassword);
+            }
+        };
     }
 }

@@ -37,8 +37,18 @@ public class UserController {
 
     @GetMapping("/me")
     public ResponseEntity<User> getCurrentUser(Authentication authentication) {
+        if (authentication == null) {
+            logger.warn("获取当前用户失败：未认证");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
         String username = authentication.getName();
+        logger.info("尝试获取用户信息：{}", username);
         User user = userService.findByUsername(username);
+        if (user == null) {
+            logger.warn("获取当前用户失败：用户不存在 {}", username);
+            return ResponseEntity.notFound().build();
+        }
+        logger.info("成功获取用户信息：{}", username);
         return ResponseEntity.ok(user);
     }
 
