@@ -52,6 +52,10 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody User loginUser) {
         try {
             logger.info("登录尝试，用户名: {}", loginUser.getUsername());
+            if (loginUser.getUsername() == null || loginUser.getPassword() == null) {
+                logger.warn("登录失败：用户名或密码为空");
+                return ResponseEntity.badRequest().body("用户名和密码不能为空");
+            }
             User user = userService.findByUsername(loginUser.getUsername());
             if (user != null && user.getPassword().equals(loginUser.getPassword())) {
                 logger.info("用户登录成功: {}", user.getUsername());
