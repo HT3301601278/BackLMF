@@ -36,5 +36,15 @@ public class DeviceController {
         return ResponseEntity.ok(deviceService.updateDevice(device));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Device> getDeviceById(@PathVariable Long id) {
+        Device device = deviceService.getDeviceById(id);
+        if (device != null) {
+            return ResponseEntity.ok(device);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     // 其他设备相关端点
 }

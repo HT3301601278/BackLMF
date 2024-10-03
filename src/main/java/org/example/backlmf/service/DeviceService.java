@@ -36,5 +36,9 @@ public class DeviceService {
         return deviceRepository.findByDeviceId(deviceId);
     }
 
+    public Device getDeviceById(Long id) {
+        return deviceRepository.findById(id).orElse(null);
+    }
+
     // 其他设备相关方法
 }

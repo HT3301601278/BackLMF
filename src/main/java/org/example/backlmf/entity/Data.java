@@ -2,6 +2,7 @@ package org.example.backlmf.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "data")
@@ -13,6 +14,7 @@ public class Data {
     private double ammoniaConcentration;
     private LocalDateTime timestamp;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "device_id")
     private Device device;
