@@ -29,5 +29,10 @@ public class DataController {
         return ResponseEntity.ok(dataService.getDataByDeviceAndTimeRange(deviceId, start, end));
     }
 
+    @PostMapping("/device/{deviceId}")
+    public ResponseEntity<Data> addDataToDevice(@PathVariable Long deviceId, @RequestBody Data data) {
+        return ResponseEntity.ok(dataService.addDataToDevice(deviceId, data));
+    }
+
     // 其他数据相关端点
 }

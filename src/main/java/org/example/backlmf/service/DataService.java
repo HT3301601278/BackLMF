@@ -31,5 +31,12 @@ public class DataService {
         return dataRepository.findByDeviceIdAndTimestampBetween(deviceId, start, end);
     }
 
+    public Data addDataToDevice(Long deviceId, Data data) {
+        Device device = deviceRepository.findById(deviceId)
+                .orElseThrow(() -> new RuntimeException("设备不存在"));
+        data.setDevice(device);
+        return dataRepository.save(data);
+    }
+
     // 其他数据相关方法
 }

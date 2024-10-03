@@ -57,5 +57,15 @@ public class DeviceController {
         }
     }
 
+    @PutMapping("/{deviceId}/associate/{userId}")
+    public ResponseEntity<Device> associateDeviceWithUser(@PathVariable Long deviceId, @PathVariable Long userId) {
+        try {
+            Device associatedDevice = deviceService.associateDeviceWithUser(deviceId, userId);
+            return ResponseEntity.ok(associatedDevice);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
     // 其他设备相关端点
 }
