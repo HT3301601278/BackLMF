@@ -70,4 +70,12 @@ public class Alarm {
     public void setHandled(boolean handled) {
         this.handled = handled;
     }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
