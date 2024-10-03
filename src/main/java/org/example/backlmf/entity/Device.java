@@ -17,7 +17,9 @@ public class Device {
 
     private String type;
     private String location;
-    private String status;
+
+    @Column(name = "status")
+    private Boolean status = false; // 设置默认值为 false
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -62,11 +64,11 @@ public class Device {
         this.location = location;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

@@ -46,5 +46,16 @@ public class DeviceController {
         }
     }
 
+    @PutMapping("/{id}/toggle")
+    public ResponseEntity<Device> toggleDeviceStatus(@PathVariable Long id) {
+        Device device = deviceService.getDeviceById(id);
+        if (device != null) {
+            device.setStatus(device.getStatus() == null ? true : !device.getStatus());
+            return ResponseEntity.ok(deviceService.updateDevice(device));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     // 其他设备相关端点
 }
