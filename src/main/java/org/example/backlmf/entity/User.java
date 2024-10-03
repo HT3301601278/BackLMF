@@ -2,6 +2,7 @@ package org.example.backlmf.entity;
 
 import javax.persistence.*;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "users")
@@ -18,7 +19,8 @@ public class User {
 
     private String contactInfo;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Device> devices;
 
     // Getters and setters

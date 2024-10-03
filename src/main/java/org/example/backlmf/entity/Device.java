@@ -3,6 +3,7 @@ package org.example.backlmf.entity;
 import javax.persistence.*;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "devices")
@@ -18,8 +19,9 @@ public class Device {
     private String location;
     private String status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     @JsonManagedReference
