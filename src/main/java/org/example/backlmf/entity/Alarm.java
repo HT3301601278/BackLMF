@@ -18,6 +18,9 @@ public class Alarm {
     @JoinColumn(name = "device_id")
     private Device device;
 
+    private String message;
+    private boolean handled; // 新增字段，表示是否已处理
+
     // Getters and setters
 
     public Long getId() {
@@ -58,5 +61,13 @@ public class Alarm {
 
     public void setDevice(Device device) {
         this.device = device;
+    }
+
+    public boolean isHandled() {
+        return handled;
+    }
+
+    public void setHandled(boolean handled) {
+        this.handled = handled;
     }
 }

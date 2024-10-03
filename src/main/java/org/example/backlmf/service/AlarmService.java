@@ -20,5 +20,16 @@ public class AlarmService {
         return alarmRepository.findByDeviceId(deviceId);
     }
 
+    public Alarm handleAlarm(Long alarmId) {
+        Alarm alarm = alarmRepository.findById(alarmId)
+                .orElseThrow(() -> new RuntimeException("报警不存在"));
+        alarm.setHandled(true);
+        return alarmRepository.save(alarm);
+    }
+
+    public List<Alarm> getUnhandledAlarms() {
+        return alarmRepository.findByHandled(false);
+    }
+
     // 其他报警相关方法
 }

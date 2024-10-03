@@ -19,9 +19,19 @@ public class AlarmController {
         return ResponseEntity.ok(alarmService.createAlarm(alarm));
     }
 
-    @GetMapping("/{deviceId}")
+    @GetMapping("/device/{deviceId}")
     public ResponseEntity<List<Alarm>> getAlarmsByDevice(@PathVariable Long deviceId) {
         return ResponseEntity.ok(alarmService.getAlarmsByDevice(deviceId));
+    }
+
+    @PutMapping("/{id}/handle")
+    public ResponseEntity<Alarm> handleAlarm(@PathVariable Long id) {
+        return ResponseEntity.ok(alarmService.handleAlarm(id));
+    }
+
+    @GetMapping("/unhandled")
+    public ResponseEntity<List<Alarm>> getUnhandledAlarms() {
+        return ResponseEntity.ok(alarmService.getUnhandledAlarms());
     }
 
     // 其他报警相关端点
